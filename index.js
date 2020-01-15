@@ -4,19 +4,20 @@ function getDogImages(amount) {
   fetch(`https://dog.ceo/api/breeds/image/random/${amount}`)
     .then(response => response.json())
     .then(responseJson => 
-      console.log(responseJson))
+      displayResults(responseJson))
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
-// function displayResults(responseJson) {
-//   console.log(responseJson);
-//   //replace the existing image with the new one
-//   $('.results-img').replaceWith(
-//     `<img src="${responseJson.message}" class="results-img">`
-//   )
-//   //display the results section
-//   $('.results').removeClass('hidden');
-// }
+function displayResults(responseJson) {
+  console.log(responseJson);
+  //display the results section
+  let html = '<h2>Look at these dogs!</h2>';
+  responseJson.message.forEach(img => {
+    html += `<img src='${img}' alt='Doggy'/>`;
+  });
+  $('.results').html(html);
+  $('.results').removeClass('hidden');
+}
 
 function watchForm() {
   $('form').submit(event => {
